@@ -396,6 +396,9 @@ void Session::notify(const fingerprint_msg_t* msg) {
 #endif
             mCb->onEnrollmentProgress(msg->data.enroll.finger.fid,
                                       msg->data.enroll.samples_remaining);
+            if (msg->data.enroll.samples_remaining == 0 && mUdfpsHandler) {
+                mUdfpsHandler->onFingerUp();
+            }
 
         } break;
         case FINGERPRINT_TEMPLATE_REMOVED: {
